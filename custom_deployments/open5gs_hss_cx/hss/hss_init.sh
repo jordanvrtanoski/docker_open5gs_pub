@@ -26,15 +26,10 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-export DB_URI="mongodb://${MONGO_IP}/open5gs"
-
 export IP_ADDR=$(awk 'END{print $1}' /etc/hosts)
 
 [ ${#MNC} == 3 ] && EPC_DOMAIN="epc.mnc${MNC}.mcc${MCC}.3gppnetwork.org" || EPC_DOMAIN="epc.mnc0${MNC}.mcc${MCC}.3gppnetwork.org"
 [ ${#MNC} == 3 ] && IMS_DOMAIN="ims.mnc${MNC}.mcc${MCC}.3gppnetwork.org" || IMS_DOMAIN="ims.mnc0${MNC}.mcc${MCC}.3gppnetwork.org"
-
-ln -s /usr/bin/mongo /usr/bin/mongosh
-sed -i "s|localhost|$MONGO_IP|" /open5gs/misc/db/open5gs-dbctl
 
 cp /mnt/hss/hss.yaml install/etc/open5gs
 cp /mnt/hss/hss.conf install/etc/freeDiameter
